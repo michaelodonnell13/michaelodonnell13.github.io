@@ -24,7 +24,7 @@
 
                 React.useEffect(() => {
                     if (props.state.menu.length == 0) {
-                        fetch(`http://127.0.0.1:8000/get_entry_types`)
+                        fetch(`http://${webroot}/get_entry_types`)
                         .then(response => response.json())
                         .then(function(data) {
                             props.setter({
@@ -81,7 +81,7 @@
                 React.useEffect(() => {
                     if (props.content_type != "menu") {
                         console.log("looking at something else, getting content...");
-                        fetch(`http://127.0.0.1:8000/get_cv_entries?type=${props.content_type}`)
+                        fetch(`http://${webroot}/get_cv_entries?type=${props.content_type}`)
                         .then(response => response.json())
                         .then(function(data) {
                             setEntries(data)

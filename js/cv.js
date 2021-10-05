@@ -19,7 +19,11 @@ function build_menu(mode, data) {
 }
 
 function load_menu() {
+<<<<<<< HEAD
     let outside_data = fetch(`http://${webroot}/get_entry_types`)
+=======
+    fetch(`https://www.ochenos.com/get_entry_types`)
+>>>>>>> 1534ba8ad10d5cd4979113a8bdb8150263b7f48c
     .then(response => response.json())
     .then(function(data) {
         return data;
