@@ -24,7 +24,7 @@
 
                 React.useEffect(() => {
                     if (props.state.menu.length == 0) {
-                        fetch(`https://${webroot}/get_entry_types`)
+                        fetch(`${webroot}/get_entry_types`)
                         .then(response => response.json())
                         .then(function(data) {
                             props.setter({
@@ -54,7 +54,7 @@
 
                 menu_items.push(
                     <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" data-type="Main" href="#" onClick={nav_click}>Main</a>
+                        <a className="nav-link active" aria-current="page" data-type="menu" href="#" onClick={nav_click}>Overview</a>
                     </li>
                 )         
 
@@ -81,7 +81,7 @@
                 React.useEffect(() => {
                     if (props.content_type != "menu") {
                         console.log("looking at something else, getting content...");
-                        fetch(`https://${webroot}/get_cv_entries?type=${props.content_type}`)
+                        fetch(`${webroot}/get_cv_entries?type=${props.content_type}`)
                         .then(response => response.json())
                         .then(function(data) {
                             setEntries(data)
@@ -96,10 +96,10 @@
                     entry_cards.push(
                         <div class="card">
                         <div class="card-header">
-                            {entries[key].title}
+                            {entries[key].start} - {entries[key].end == null ? "Present" : entries[key].end}
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{entries[key].start}</h5>
+                            <h5 class="card-title">{entries[key].title}</h5>
                             <p class="card-text">{entries[key].description}</p>
                         </div>
                         </div>
@@ -108,8 +108,8 @@
                 }
 
                 return (
-                    <div className="row">
-                        {entry_cards}
+                    <div className="container">
+                        {props.content_type != "menu" ? entry_cards : ""}
                     </div>
                 );
             }
