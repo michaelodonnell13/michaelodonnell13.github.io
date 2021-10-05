@@ -1,1 +1,1 @@
-let webroot = "www.ochenos.com"
+const webroot = "www.ochenos.com";
