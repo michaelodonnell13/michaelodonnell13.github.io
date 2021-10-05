@@ -41,6 +41,6 @@ $("document").ready(function() {
 
 })
 
-$("document").change(function() {
-
+$("window").change(function() {
+    $("#menu").height(window.innerHeight);
 })
