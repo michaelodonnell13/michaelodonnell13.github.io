@@ -37,6 +37,10 @@ function load_cv_entries(type) {
 
 $("document").ready(function() {
 
-    //load_menu();
+    $("#menu").height(window.innerHeight);
+
+})
+
+$("document").change(function() {
 
 })

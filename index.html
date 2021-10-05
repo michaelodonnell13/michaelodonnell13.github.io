@@ -12,8 +12,8 @@
         <title>Michael O'Donnell - CV</title>
     </head>
 
-    <body>
-        <div id="app">
+    <body class="container">
+        <div id="app" class="container-fluid">
         </div>
 
         <script type="text/babel">
@@ -67,7 +67,7 @@
                 }
 
                 return (
-                    <ul className={props.state.content_type == "menu" ? "nav flex-column" : "nav"}>
+                    <ul className={props.state.content_type == "menu" ? "nav flex-column col-3" : "nav"}>
                         {menu_items}
                     </ul>
                 );
@@ -114,6 +114,12 @@
                 );
             }
 
+            function PersonalDetailsCard(props) {
+                return (
+                    <h1 class="col-6 mr-auto">Hello!</h1>
+                )
+            }
+
             function App(props) {
 
                 const [state, setState] = React.useState({
@@ -123,9 +129,12 @@
                 
 
                 return (
-                    <div>
-                        <Nav state={state} setter={setState} />
-                        <CVContent content_type={state.content_type} />
+                    <div id="menu" className={state.content_type == "menu" ? "row" : ""}>
+                        <div className={state.content_type == "menu" ? "row justify-content-center d-flex align-items-center" : "navbar"}>
+                            <Nav state={state} setter={setState} />
+                            {state.content_type == "menu" ? <PersonalDetailsCard /> : "" }
+                        </div>
+                        {state.content_type != "menu" ? <CVContent content_type={state.content_type} /> : "" }
                     </div>
                 );
             }
