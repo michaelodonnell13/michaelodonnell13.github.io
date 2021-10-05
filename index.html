@@ -94,7 +94,7 @@
 
                 for (var key in entries) {
                     entry_cards.push(
-                        <div class="card">
+                        <div class="card mb-2">
                         <div class="card-header">
                             {entries[key].start} - {entries[key].end == null ? "Present" : entries[key].end}
                         </div>
@@ -134,7 +134,7 @@
                             <Nav state={state} setter={setState} />
                             {state.content_type == "menu" ? <PersonalDetailsCard /> : "" }
                         </div>
-                        {state.content_type != "menu" ? <CVContent content_type={state.content_type} /> : "" }
+                        {state.content_type != "menu" ? <div id="cv-cont"><CVContent content_type={state.content_type} /> </div>: "" }
                     </div>
                 );
             }

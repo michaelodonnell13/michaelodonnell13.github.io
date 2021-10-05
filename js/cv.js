@@ -44,3 +44,7 @@ $("document").ready(function() {
 $("window").change(function() {
     $("#menu").height(window.innerHeight);
 })
+
+$("document").change(function() {
+    $("#menu").height(window.innerHeight);
+})
