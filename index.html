@@ -16,9 +16,51 @@
         <div id="app" class="container-fluid">
         </div>
 
-        <script type="text/babel">
+        <script type="text/babel">        
+
+            function PersonalDetailsCard(props) {
+                const content = [];
+
+                function nav_click (event) {
+                    const type = event.target.dataset.type;
+                    if (type != "menu") {
+                        props.setter({
+                            ...props.state,
+                            content_type: type
+                        });
+                        console.log(type);
+                    } else {
+                        props.setter({
+                            ...props.state,
+                            content_type: "menu"
+                        });
+                        console.log(type);
+                    }
+                }    
+
+                if (props.state.content_type != "menu") {
+                    return (
+                            <a className="navbar-brand" data-type="menu" href="#" onClick={nav_click}>Main Menu</a>
+                        );
+                } else {   
+                    return(  
+                        <div class="col-9">                 
+                    <div class="card mb-2 col-10">
+                        <div class="card-header">
+                            Michael O'Donnell
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Cool Guy</h5>
+                            <p class="card-text">email me!</p>
+                        </div>
+                    </div>
+                    </div>
+                    );
+
+                }
+            }
             
-            function Nav (props) {
+            function Menu (props) {
 
                 const menu_items = [];
 
@@ -37,7 +79,7 @@
 
                 function nav_click (event) {
                     const type = event.target.dataset.type;
-                    if (type != "Main") {
+                    if (type != "menu") {
                         props.setter({
                             ...props.state,
                             content_type: type
@@ -52,24 +94,26 @@
                     }
                 }      
 
-                menu_items.push(
-                    <li className="nav-item">
-                        <a className="nav-link active" aria-current="page" data-type="menu" href="#" onClick={nav_click}>Overview</a>
-                    </li>
-                )         
-
                 for (var key in props.state.menu) {
                     menu_items.push(
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" data-type={`${props.state.menu[key].type}`} href="#" onClick={nav_click}>{props.state.menu[key].type}</a>
+                            <a className="nav-link" aria-current="page" data-type={`${props.state.menu[key].type}`} href="#" onClick={nav_click}>{props.state.menu[key].type}</a>
                         </li>
                     )
                 }
 
                 return (
-                    <ul className={props.state.content_type == "menu" ? "nav flex-column col-3" : "nav"}>
-                        {menu_items}
-                    </ul>
+                        <div id="menu" className="navbar navbar-expand-md">
+                        <div className="container-fluid">
+                            <ul className={props.state.content_type == "menu" ? "nav flex-column col-3" : "nav"}>
+                                {menu_items}
+                            </ul>
+                            <PersonalDetailsCard state={props.state} setter={props.setter}/>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            </div>
+                        </div>
                 );
             }
 
@@ -104,7 +148,6 @@
                         </div>
                         </div>
                     )
-                    console.log(entries[key]);
                 }
 
                 return (
@@ -112,12 +155,6 @@
                         {props.content_type != "menu" ? entry_cards : ""}
                     </div>
                 );
-            }
-
-            function PersonalDetailsCard(props) {
-                return (
-                    <h1 class="col-6 mr-auto">Hello!</h1>
-                )
             }
 
             function App(props) {
@@ -129,11 +166,8 @@
                 
 
                 return (
-                    <div id="menu" className={state.content_type == "menu" ? "row" : ""}>
-                        <div className={state.content_type == "menu" ? "row justify-content-center d-flex align-items-center" : "navbar"}>
-                            <Nav state={state} setter={setState} />
-                            {state.content_type == "menu" ? <PersonalDetailsCard /> : "" }
-                        </div>
+                    <div>
+                        <Menu state={state} setter={setState} />
                         {state.content_type != "menu" ? <div id="cv-cont"><CVContent content_type={state.content_type} /> </div>: "" }
                     </div>
                 );

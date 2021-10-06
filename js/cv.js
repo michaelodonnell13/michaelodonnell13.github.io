@@ -35,16 +35,22 @@ function load_cv_entries(type) {
     });
 }
 
+function update_menu_height() {
+    // if ($("#menu").attr("class") == "row") {
+    //     $("#menu").height(window.innerHeight);
+    // } else {
+    //     $("#menu").removeAttr("style");
+    // }
+}
+
 $("document").ready(function() {
-
-    $("#menu").height(window.innerHeight);
-
+    update_menu_height();
 })
 
 $("window").change(function() {
-    $("#menu").height(window.innerHeight);
+    update_menu_height();
 })
 
 $("document").change(function() {
-    $("#menu").height(window.innerHeight);
+    update_menu_height();
 })
