@@ -12,7 +12,7 @@
         <title>Michael O'Donnell - CV</title>
     </head>
 
-    <body class="container bg-light">
+    <body class="bg-light container">
         <div id="app" class="container-fluid">
         </div>
 
@@ -21,15 +21,21 @@
             function PersonalDetailsCard(props) {
 
                 return(  
-                    <div class="col-8 my-5">                 
-                        <div class="card mb-2 col-10">
-                            <img src="./media/img/me.jpg" class="card-img-top" alt="..." />
-                            <div class="card-header">
-                                Michael O'Donnell
+                    <div class="col-6 my-5">                 
+                        <div class="card">
+                                <div class="card-header">
+                                    Michael O'Donnell
+                                </div>
+                            <div class="row">
+                            <div class="col-4">
+                                <img src="./media/img/me.jpg" class="card-img" alt="..." />
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Cool Guy</h5>
-                                <p class="card-text">email me!</p>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cool Guy</h5>
+                                    <p class="card-text">email me!</p>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>);
