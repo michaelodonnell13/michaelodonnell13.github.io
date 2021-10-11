@@ -16,32 +16,10 @@
         <div id="app" class="container-fluid">
         </div>
 
-        <script type="text/babel">        
-
-            function PersonalDetailsCard(props) {
-
-                return(  
-                    <div class="col-6 my-5">                 
-                        <div class="card">
-                                <div class="card-header">
-                                    Michael O'Donnell
-                                </div>
-                            <div class="row">
-                            <div class="col-12 col-lg-6">
-                                <img src="./media/img/me.jpg" class="card-img" alt="..." />
-                            </div>
-                            <div class="col-12 col-lg-6">
-                                <div class="card-body">
-                                    <h5 class="card-title">Cool Guy</h5>
-                                    <p class="card-text">email me!</p>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>);
-            }
+        <script type="text/babel">
             
             function Menu (props) {
+                console.log("Menu loaded");
 
                 const menu_items = [];
 
@@ -59,45 +37,62 @@
                 })
 
                 function nav_click (event) {
+                    console.log("nav click")
                     const type = event.target.dataset.type;
-                    if (type != "menu") {
-                        props.setter({
-                            ...props.state,
-                            content_type: type
-                        });
-                        console.log(type);
-                    } else {
-                        props.setter({
-                            ...props.state,
-                            content_type: "menu"
-                        });
-                        console.log(type);
-                    }
-                }      
-
-                for (var key in props.state.menu) {
-                    menu_items.push(
-                        <li className="nav-item">
-                            <a className={props.state.menu[key].type == props.state.content_type ? "nav-link active" : "nav-link"} aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" data-type={`${props.state.menu[key].type}`} href="#" onClick={nav_click}>{props.state.menu[key].type}</a>
-                        </li>
-                    )
+                    props.setter({
+                        ...props.state,
+                        content_type: type
+                    });
                 }
 
-                return (
-                    <nav className={props.state.content_type == "menu" ? "navbar navbar-light col-4" : "navbar navbar-expand-md navbar-light"}>
-                        <div className={props.state.content_type == "menu" ? "container-fluid justify-content-end" : "container-fluid"}>
-                            { props.state.content_type != "menu" ? <a className="navbar-brand" data-type="menu" href="#" onClick={nav_click}>Michael O'Donnell</a> : ""}
-                            { props.state.content_type != "menu" ? <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> 
-                            <span className="navbar-toggler-icon"></span> 
-                            </button> : "" }
-                            <div className={ props.state.content_type != "menu" ? "collapse navbar-collapse" : "" } id="navbarSupportedContent">
-                                <ul className={ props.state.content_type == "menu" ? "navbar-nav flex-column" : "navbar-nav me-auto mb-2 mb-lg-0"}>
-                                    {menu_items}
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>);
+                var menu_font_size = "";
+
+                if (window.innerWidth <= 400) {
+                    menu_font_size = " fs-3";
+                } else {
+                    menu_font_size = " fs-6";
+                }
+                console.log("Inned width: ", document.width);
+
+                for (var key in props.state.menu) {
+                    console.log("building menu");
+                    menu_items.push(
+                        <li className="nav-item">
+                            <a className={props.state.menu[key].type == props.state.content_type ? "nav-link link-dark text-danger"  + menu_font_size: "link-dark nav-link"  + menu_font_size} aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" data-type={`${props.state.menu[key].type}`} href="#" onClick={nav_click}>{props.state.menu[key].type}</a>
+                        </li>
+                    );
+                }
                 
+                return (
+                    <div className="container-fluid">
+                    { props.state.content_type != "menu" ? <a className="navbar-brand float-end text-black" aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" data-type="menu" href="#" onClick={nav_click}>Michael O'Donnell</a> : ""}
+                    <ul className={ props.state.content_type == "menu" ? "nav nav-pills justify-content-center mb-4 mt-2 " : "navbar-nav me-auto mb-2 mb-lg-0p"}>
+                        {menu_items}
+                    </ul>
+                    </div>
+                );
+                
+            }
+
+            function PersonalDetailsCard(props) {
+
+                return(                  
+                        <div class="card my-4 col-lg-9 col-12 mx-auto">
+                            <div class="row">
+                                <div class="col-12 col-lg-5">
+                                    <img src="./media/img/me.jpg" class="img-fluid rounded-start" alt="..." />
+                                </div>
+                                <div class="col-12 col-lg-7">            
+                                    <Menu state={props.state} setter={props.setter} />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Michael O'Donnell</h5>
+                                        <p class="badge btn-danger">Customer Service Trainer</p>
+                                        <p class="card-text">Some content about me and who I am and what Some conto I am and what Some content about me and who I am and what </p>
+                                        <a class="btn btn-secondary my-auto" href="mailto:michaelodonnell13@gmail.com">Email me!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>);
             }
 
             function CVContent (props) {
@@ -106,16 +101,11 @@
                 const entry_cards = [];
 
                 React.useEffect(() => {
-                    if (props.content_type != "menu") {
-                        console.log("looking at something else, getting content...");
                         fetch(`${webroot}/get_cv_entries?type=${props.content_type}`)
                         .then(response => response.json())
                         .then(function(data) {
                             setEntries(data)
                         });
-                    }else{
-                        console.log("Looking at the menu, no content fetching...");
-                    }
                 },[props.content_type]);
                     
 
@@ -146,14 +136,31 @@
                     content_type: "menu", 
                     menu: []
                 });
-                
 
-                return (
-                    <div className={state.content_type == "menu" ? "row" : ""}>
-                        <Menu state={state} setter={setState} />
-                        {state.content_type != "menu" ? <div id="cv-cont"><CVContent content_type={state.content_type} /> </div>: <PersonalDetailsCard  state={state} setter={setState} /> }
-                    </div>
-                );
+                console.log("State: ", JSON.stringify(state));
+                
+                if (state.content_type == "menu") { // show only the card
+                    return (
+                        <PersonalDetailsCard  state={state} setter={setState} />
+                    );
+                } else { // show the menu and the content
+                    return (
+                    <div>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="container-fluid">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        
+                                <Menu state={state} setter={setState} />
+                            </div>
+                        </div>
+                    </nav>
+
+                        <div class="col-12"> <CVContent content_type={state.content_type} /> </div>
+                    </div>);
+                }
             }
 
             ReactDOM.render(<App />, document.querySelector("#app"));
