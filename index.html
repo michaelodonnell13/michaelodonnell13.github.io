@@ -107,22 +107,25 @@
                             setEntries(data)
                         });
                 },[props.content_type]);
-                    
+                
+                console.log(entries);
 
                 for (var key in entries) {
                     entry_cards.push(
                         <div class="card mb-2">
+                        <img className="card-img-top" src={entries[key].image}></img>
                         <div class="card-header">
                             {entries[key].start} - {entries[key].end == null ? "Present" : entries[key].end}
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{entries[key].title}</h5>
-                            <p class="card-text">{entries[key].description}</p>
+                            <div class="card-text" dangerouslySetInnerHTML={ { __html: entries[key].html_desc } } />
                         </div>
                         </div>
                     )
                 }
 
+                console.log(entries);
                 return (
                     <div className="container">
                         {props.content_type != "menu" ? entry_cards : ""}
@@ -157,7 +160,7 @@
                             </div>
                         </div>
                     </nav>
-
+                        {console.log("menu rendered, now CV content...")}
                         <div class="col-12"> <CVContent content_type={state.content_type} /> </div>
                     </div>);
                 }
