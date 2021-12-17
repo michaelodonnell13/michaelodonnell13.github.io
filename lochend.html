@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,"/>
+        <script src="./js/consts.js"></script>
+        <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+		<script src="./js/cv.js"></script>
+        <link rel="stylesheet" href="src/styles.css" />
+    
+
+        <title>Lochend Test</title>
+    </head>
+
+    <body class="bg-light container">
+        <div id="container">
+            <h1>QR Code Scanner</h1>
+        
+            <a id="btn-scan-qr">
+                <button>Click to Scan</button>
+            </a>
+        
+            <canvas hidden="" id="qr-canvas"></canvas>
+        
+            <div id="qr-result" hidden="">
+                <b>Data:</b> <span id="outputData"></span>
+            </div>
+        </div>
+        
+        <script src="./src/qrCodeReader.js"></script>
+    </body>
+</html> 
