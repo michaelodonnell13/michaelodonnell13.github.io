@@ -119,8 +119,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{entries[key].title}</h5>
-                            <div class="card-text" 
-			    ouslySetInnerHTML={ { __html: entries[key].description } } />
+                            <div class="card-text" dangerouslySetInnerHTML={ { __html: entries[key].description } } />
                         </div>
                         </div>
                     )
