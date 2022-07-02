@@ -57,7 +57,7 @@
                     console.log("building menu");
                     menu_items.push(
                         <li className="nav-item">
-                            <a className={props.state.menu[key].type == props.state.content_type ? "nav-link link-dark text-danger"  + menu_font_size: "link-dark nav-link"  + menu_font_size} aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" data-type={`${props.state.menu[key].type}`} href="#" onClick={nav_click}>{props.state.menu[key].type}</a>
+                            <a className={props.state.menu[key].type == props.state.content_type ? "nav-link link-dark text-info"  + menu_font_size: "link-dark nav-link"  + menu_font_size} aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" data-type={`${props.state.menu[key].type}`} href="#" onClick={nav_click}>{props.state.menu[key].type}</a>
                         </li>
                     );
                 }
@@ -85,7 +85,7 @@
                                     <Menu state={props.state} setter={props.setter} />
                                     <div class="card-body">
                                         <h5 class="card-title">Michael O'Donnell</h5>
-                                        <p class="badge btn-danger">Software Developer</p>
+                                        <p class="badge btn-info">Software Developer</p>
                                         <p class="card-text">I'm currently working as a software developer in the Scottish Government, using C#, .NET Core, Azure, and GitHub to build and autonomously deploy containerised web apps to the cloud.</p>
 					<p class="card-text">I have used the Microsoft Power Platform to quickly build and launch low-code solutions to internal business problems at minimal cost.</p>
 					<p class="card-text">I also have experience in Python/Django web development, React, jQuery, Bootstrap, Java, Kotlin.</p>
@@ -119,7 +119,8 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{entries[key].title}</h5>
-                            <div class="card-text" dangerouslySetInnerHTML={ { __html: entries[key].description } } />
+                            <div class="card-text" 
+			    ouslySetInnerHTML={ { __html: entries[key].description } } />
                         </div>
                         </div>
                     )
