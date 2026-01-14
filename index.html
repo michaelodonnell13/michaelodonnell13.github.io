@@ -95,7 +95,7 @@
                         </div>);
             }
 
-            function CVContent (props) {
+function CVContent (props) {
 
                 const [entries, setEntries] = React.useState(null);
                 const entry_cards = [];
@@ -111,24 +111,30 @@
                 console.log(entries);
 
                 for (var key in entries) {
+                    const description = entries[key].description || "";
+                    // Check if the HTML string contains list items
+                    const hasListItems = description.includes("<li");
+
                     entry_cards.push(
-                        <div class="card mb-2">
-                        <img className="card-img-top" src={entries[key].image}></img>
-                        <div class="card-header">
-                            {entries[key].start} - {entries[key].end == null ? "Present" : entries[key].end}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{entries[key].title}</h5>
-                            <div class="card-text">
-                                <ul dangerouslySetInnerHTML={ { __html: entries[key].description } }>                                    
-                                </ul>
+                        <div className="card mb-2" key={key}>
+                            <img className="card-img-top" src={entries[key].image} alt="" />
+                            <div className="card-header">
+                                {entries[key].start} - {entries[key].end == null ? "Present" : entries[key].end}
                             </div>
-                        </div>
+                            <div className="card-body">
+                                <h5 className="card-title">{entries[key].title}</h5>
+                                <div className="card-text">
+                                    {hasListItems ? (
+                                        <ul dangerouslySetInnerHTML={{ __html: description }}></ul>
+                                    ) : (
+                                        <div dangerouslySetInnerHTML={{ __html: description }}></div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     )
                 }
 
-                console.log(entries);
                 return (
                     <div className="container">
                         {props.content_type != "menu" ? entry_cards : ""}
